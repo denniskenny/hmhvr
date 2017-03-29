@@ -14,4 +14,6 @@ Based on [ReactVR](https://github.com/facebook/react-vr)
  npm start
  ~~~~ 
 
-* and point at http://localhost:8081/vr/
+and point at http://localhost:8081/vr/
+
+You may also need the latest experimental version of Chrome or Firefox.
