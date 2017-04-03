@@ -8,13 +8,13 @@ class hmhvr extends React.Component {
 
   constructor() {
     super();
-    this.total = 0;
     this.state = {
-      rotation: 0
+      rotation: 0,
+      total: -1
     };
     this.lastUpdate = Date.now();
     this.rotate = this.rotate.bind(this);
-    this.pointCloud = this.getPointCloudOf(this.total, 200);
+    this.nextState();
   }
 
 
@@ -54,7 +54,10 @@ class hmhvr extends React.Component {
     }
   }
 
-  nextState() {}
+  nextState() {
+    this.state.total++;
+    this.pointCloud = this.getPointCloudOf(this.state.total, 200);
+  }
 
   Monsters() {
     return {
@@ -77,7 +80,7 @@ class hmhvr extends React.Component {
   }
 
 
-  Decal() {
+  Decals() {
     return {
       render: function() {
 
@@ -102,14 +105,14 @@ class hmhvr extends React.Component {
     return (
       <View>
         <Pano source={ asset('skybox.jpg') } />
-        <this.Decal
+        <this.Decals
                     points={ this.pointCloud }
-                    rotation={ this.state.rotation }></this.Decal>
+                    rotation={ this.state.rotation }/>
         <PointLight style={ { color: 'white', transform: [{ translate: [0, 400, 700] }] } } />
         <Text
-              onclick="nextState()"
+              onInput={() => this.nextState()}
               style={ { backgroundColor: 'grey', padding: 0.1, textAlign: 'center', textAlignVertical: 'center', fontSize: 0.4, position: 'absolute', transform: [{ translate: [0, -2.5, -7] }], layoutOrigin: [0.5, 0.5] } }>
-          { this.total } objects
+          { this.state.total } objects
         </Text>
       </View>
       );
